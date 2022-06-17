@@ -18,21 +18,21 @@ namespace NodeManager.Web.Repository
 
         //public IEnumerable<Node> Nodes => dbContext.Nodes;
 
-        public IQueryable<FamilySymbol> FamilySymbols => dbContext.FamilySymbols;
+        public IEnumerable<FamilySymbol> FamilySymbols => dbContext.FamilySymbols;
 
-        public IQueryable<RevitParameter> RevParameters => dbContext.RevitParameters;
+        public IEnumerable<RevitParameter> RevParameters => dbContext.RevitParameters;
 
-        public IQueryable<Categories> Categories => dbContext.Categories;
+        public IEnumerable<Categories> Categories => dbContext.Categories;
 
-        public IQueryable<Sections> Sections => dbContext.Sections;
+        public IEnumerable<Sections> Sections => dbContext.Sections;
 
-        public IQueryable<Tags> Tags => dbContext.Tags;
+        public IEnumerable<Tags> Tags => dbContext.Tags;
 
-        public IQueryable<FSTags> FSTags => dbContext.FSTags;
+        public IEnumerable<FSTags> FSTags => dbContext.FSTags;
 
-        public IQueryable<Users> Users => dbContext.Users;
+        public IEnumerable<Users> Users => dbContext.Users;
 
-        public IQueryable<Files> Files => dbContext.Files;
+        public IEnumerable<Files> Files => dbContext.Files;
 
         NodeManagerDBEntities INodes.dbContext => dbContext;
     }

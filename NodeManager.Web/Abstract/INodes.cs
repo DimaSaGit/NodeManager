@@ -10,13 +10,13 @@ namespace NodeManager.Web.Abstract
     {
         NodeManagerDBEntities dbContext { get; }
         //IEnumerable<Node> Nodes { get; }
-        IQueryable<FamilySymbol> FamilySymbols { get; }
-        IQueryable<RevitParameter> RevParameters { get; }
-        IQueryable<Categories> Categories { get; }
-        IQueryable<Sections> Sections { get; }
-        IQueryable<Tags> Tags { get; }
-        IQueryable<FSTags> FSTags { get; }
-        IQueryable<Users> Users { get; }
-        IQueryable<Files> Files { get; }
+        IEnumerable<FamilySymbol> FamilySymbols { get; }
+        IEnumerable<RevitParameter> RevParameters { get; }
+        IEnumerable<Categories> Categories { get; }
+        IEnumerable<Sections> Sections { get; }
+        IEnumerable<Tags> Tags { get; }
+        IEnumerable<FSTags> FSTags { get; }
+        IEnumerable<Users> Users { get; }
+        IEnumerable<Files> Files { get; }
     }
 }
