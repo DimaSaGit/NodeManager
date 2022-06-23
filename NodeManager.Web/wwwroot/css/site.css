@@ -610,6 +610,7 @@ ul {
     align-self: center;
     justify-self: start;
     margin-left: 4%;
+    z-index: 500;
 }
 
 /*.but_close {

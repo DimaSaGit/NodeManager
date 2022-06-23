@@ -45,9 +45,9 @@ namespace NodeManager.Web.Controllers
         [Route("List/{page:int}/{section?}/{category?}")]
         public ViewResult List(string section, string category, int page = 1)
         {
-            var pagInfo = new PagingInfo();
-            pagInfo.ItemsPerPage = 12;
-            pagInfo.CurrentPage = page;
+            //var pagInfo = new PagingInfo();
+            //pagInfo.ItemsPerPage = 12;
+            //pagInfo.CurrentPage = page;
             if (!repos.Categories.Any(x => x.Name == category))
             {
                 category = (string)null;
@@ -58,15 +58,15 @@ namespace NodeManager.Web.Controllers
             }
             Categories cat = repos.Categories.FirstOrDefault(x => x.Name.Equals(category));
             Sections sec = repos.Sections.FirstOrDefault(x => x.Name.Equals(section));
-            pagInfo.TotalItems = repos.FamilySymbols
-                    .Where(x => (category == null || x.CategoryId == cat.Id) && (section == null || x.SectionId == sec.Id))
-                    .Count();
+            //pagInfo.TotalItems = repos.FamilySymbols
+                    //.Where(x => (category == null || x.CategoryId == cat.Id) && (section == null || x.SectionId == sec.Id))
+                    //.Count();
             NodesViewModel model = new NodesViewModel()
             {
                 Symbols = repos.FamilySymbols
                     .Where(x => (category == null || x.CategoryId == cat.Id) && (section == null || x.SectionId == sec.Id))
-                    .Skip(pagInfo.ItemsPerPage * (pagInfo.CurrentPage - 1))
-                    .Take(pagInfo.ItemsPerPage)
+                    //.Skip(pagInfo.ItemsPerPage * (pagInfo.CurrentPage - 1))
+                    //.Take(pagInfo.ItemsPerPage)
                     .OrderBy(x => x.Id)
                     .ToList(),
                 CurrentSec = sec
@@ -87,7 +87,7 @@ namespace NodeManager.Web.Controllers
             model.PrjList = data;
             model.IsLogin = HttpContext.User.Identity.IsAuthenticated;
             model.tagList = repos.Tags.Select(x => x.Value).ToList();
-            model.PagingInfo = pagInfo;
+            //model.PagingInfo = pagInfo;
             return View(model);
             //return View("AddFile");
         }

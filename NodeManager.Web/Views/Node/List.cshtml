@@ -1,12 +1,15 @@
 @model NodeManager.Web.Models.NodesViewModel
 
 @{
-    var firstPage = 1;
-    var prevPage = @Model.PagingInfo.CurrentPage-1;
-    var curPage = @Model.PagingInfo.CurrentPage;
-    var nextPage = @Model.PagingInfo.CurrentPage+1;
-    var punultPage =@Model.PagingInfo.TotalPages-1;
-    var lastPage = @Model.PagingInfo.TotalPages;
+    //var firstPage = 1;
+    //var prevPage = @Model.PagingInfo.CurrentPage-1;
+    //var curPage = @Model.PagingInfo.CurrentPage;
+    //var nextPage = @Model.PagingInfo.CurrentPage+1;
+    //var punultPage =@Model.PagingInfo.TotalPages-1;
+    //var lastPage = @Model.PagingInfo.TotalPages;
+    var countNodes = Model.Symbols.Count();
+    var listNodes = new List<NodeManager.Web.DBInfrastucture.FamilySymbol>(countNodes);
+    listNodes = Model.Symbols;
 }
 
 <div class="nav_menu">
@@ -21,7 +24,7 @@
 </div>
 <div class="content_nodes">
     <div class="nodes">
-        @foreach (var nodI in Model.Symbols)
+        @*@foreach (var nodI in Model.Symbols)
         {
             <div class="node">
                 <button class="btn" onclick="window.location.href='/Symbol/@nodI.Id';"><span class="fas fa-search-plus"></span></button>
@@ -30,14 +33,45 @@
                     <p title="@nodI.Name">@FamSymbolViewModel.GetCutString(nodI.Name)</p>
                 </div>
             </div>
+        }*@
+        <div id="listingTable">
+        @foreach (var nodI in listNodes) {
+            <div class="node">
+                <button class="btn" onclick="window.location.href='/Symbol/@nodI.Id';"><span class="fas fa-search-plus"></span></button>
+                <img class="img-responsive center-block" src="data:image/jpg;base64,@FamSymbolViewModel.ImageByteToBase64ImageTag(nodI.Image)"/>
+                <div class="node_name">
+                    <p title="@nodI.Name">@FamSymbolViewModel.GetCutString(nodI.Name)</p>
+                </div>
+            </div>
+            @*<div id="listingTable"></div>*@
+            @*<a href="javascript:prevPage()" id="btn_prev">Prev</a>
+            <a href="javascript:nextPage()" id="btn_next">Next</a>*@
         }
+        </div>
+        <a href="javascript:prevPage()" id="btn_prev">Prev</a>
+        <a href="javascript:nextPage()" id="btn_next">Next</a>
+        page: <span id="page"></span>
     </div>
+
+    <div class="clearfix">
+        <div class="box options">
+            <label>Requests Per Page: </label>
+            <select id="req_per_page" onchange="filter_requests()">
+                <option>6</option>
+                <option>12</option>
+                <option>24</option>
+            </select>
+        </div>
+        <div class="box pagination">
+        </div>
+    </div>
+
     <div class="pages">
         @*<p>Всего элементов: @Model.PagingInfo.TotalItems.</p>
         <p>Элементов на странице: @Model.PagingInfo.ItemsPerPage.</p>
         <p>Текущая страница: @Model.PagingInfo.CurrentPage.</p>
         <p>Всего страниц: @Model.PagingInfo.TotalPages.</p>*@
-        <nav aria-label="Page navigation example">
+        @*<nav aria-label="Page navigation example">
             <ul class="pagination">
                 @if (lastPage > 1)
                 {
@@ -168,6 +202,34 @@
                     }
                 }
             </ul>
-        </nav>
+        </nav>*@
+
+    
+
+        <p>Элементов на странице:</p>
+
+        <!-- Default dropup button -->
+<div class="btn-group dropup">
+  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dropup
+  </button>
+  <div class="dropdown-menu">
+    <!-- Dropdown menu links -->
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
+
+        <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dropdown button
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
     </div>
 </div>
