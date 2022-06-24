@@ -2,10 +2,11 @@
     $('.chosen-select').chosen({ width: "250px" });
 });
 
-var div = document.querySelectorAll('div.node'); // Получаем список все блоков документа
-var cnt = div.length;                            // Считаем количество блок 
-alert(cnt);                                      // Выводим на экран результат
-let arr = Array.from(div);
+var blockAllNodes = document.querySelectorAll('div.node'); // Получаем список все блоков документа
+var countAllNodes = blockAllNodes.length;                  // Считаем количество блок
+alert(countAllNodes);                                      // Выводим на экран результат
+var arrNodes = Array.from(blockAllNodes);
+ 
 
 //alert(typeof (arr));
 //console.log(typeof (arr));
@@ -26,7 +27,7 @@ function prevPage() {
 }
 
 function nextPage() {
-    if (current_page < numPages()) {
+    if (current_page < countAllPages()) {
         current_page++;
         changePage(current_page);
     }
@@ -40,30 +41,32 @@ function changePage(page) {
 
     // Validate page
     if (page < 1) page = 1;
-    if (page > numPages()) page = numPages();
+    if (page > countAllPages()) page = countAllPages();
 
     listing_table.innerHTML = "";
 
-    for (var i = (page - 1) * records_per_page; i < (page * records_per_page) && i < arr.length; i++) {
-        listing_table.innerHTML += arr[i].outerHTML + "<br>";
+    for (var i = (page - 1) * records_per_page; i < (page * records_per_page) && i < arrNodes.length; i++) {
+        listing_table.innerHTML += arrNodes[i].outerHTML;
     }
-    page_span.innerHTML = page + "/" + numPages();
+    page_span.innerHTML = page + "/" + countAllPages();
 
     if (page == 1) {
         btn_prev.style.visibility = "hidden";
-    } else {
+    }
+    else {
         btn_prev.style.visibility = "visible";
     }
 
-    if (page == numPages()) {
+    if (page == countAllPages()) {
         btn_next.style.visibility = "hidden";
-    } else {
+    }
+    else {
         btn_next.style.visibility = "visible";
     }
 }
 
-function numPages() {
-    return Math.ceil(arr.length / records_per_page);
+function countAllPages() {
+    return Math.ceil(arrNodes.length / records_per_page);
 }
 
 window.onload = function () {
@@ -71,16 +74,22 @@ window.onload = function () {
 };
 
 
-function displayBlock() {
+//function displayBlock() {
     
-    for (var i = 0; i < 12; i++) {
-        arr[i]
-    }
+//    for (var i = 0; i < 12; i++) {
+//        arr[i]
+//    }
 
-}
+//}
 
-function paginationForNodes() {
-
+function changeCountItems(count) {
+    //records_per_page = document.getElementById("countPageItem").value;
+    records_per_page = count;
+    console.log(records_per_page);
+    countAllPages();
+    console.log(countAllPages());
+    changePage(1);
+    console.log(changePage(1));
 }
 
 let form = document.querySelector('.subscription');

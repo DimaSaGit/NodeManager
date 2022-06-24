@@ -1,4 +1,6 @@
+@using Microsoft.JSInterop
 @model NodeManager.Web.Models.NodesViewModel
+@inject IJSRuntime JS
 
 @{
     //var firstPage = 1;
@@ -7,8 +9,12 @@
     //var nextPage = @Model.PagingInfo.CurrentPage+1;
     //var punultPage =@Model.PagingInfo.TotalPages-1;
     //var lastPage = @Model.PagingInfo.TotalPages;
+    //int curPage = 1;
+    //int countItemsPerPage = 12;
+    //int countItemsPerPage = await JS.InvokeAsync<int>("changeCountItems");;
     var countNodes = Model.Symbols.Count();
     var listNodes = new List<NodeManager.Web.DBInfrastucture.FamilySymbol>(countNodes);
+    //listNodes = Model.Symbols.Skip((curPage - 1) * countItemsPerPage).Take(countItemsPerPage).ToList();
     listNodes = Model.Symbols;
 }
 
@@ -23,7 +29,7 @@
     @await Component.InvokeAsync("Menu", Model.categorySection)
 </div>
 <div class="content_nodes">
-    <div class="nodes">
+    <div class="nodes" id=nodeS>
         @*@foreach (var nodI in Model.Symbols)
         {
             <div class="node">
@@ -43,9 +49,6 @@
                     <p title="@nodI.Name">@FamSymbolViewModel.GetCutString(nodI.Name)</p>
                 </div>
             </div>
-            @*<div id="listingTable"></div>*@
-            @*<a href="javascript:prevPage()" id="btn_prev">Prev</a>
-            <a href="javascript:nextPage()" id="btn_next">Next</a>*@
         }
         </div>
         <a href="javascript:prevPage()" id="btn_prev">Prev</a>
@@ -56,10 +59,10 @@
     <div class="clearfix">
         <div class="box options">
             <label>Requests Per Page: </label>
-            <select id="req_per_page" onchange="filter_requests()">
-                <option>6</option>
-                <option>12</option>
-                <option>24</option>
+            <select id="countPageItem">
+                <option onclick="javascript:changeCountItems(12)" value="12">12</option>
+                <option onclick="() => {changeCountItems(24)}" value="24">24</option>
+                <option onclick="changeCountItems(48)" value="48">48</option>
             </select>
         </div>
         <div class="box pagination">
@@ -204,32 +207,5 @@
             </ul>
         </nav>*@
 
-    
-
-        <p>Ёлементов на странице:</p>
-
-        <!-- Default dropup button -->
-<div class="btn-group dropup">
-  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropup
-  </button>
-  <div class="dropdown-menu">
-    <!-- Dropdown menu links -->
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
-</div>
-
-        <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown button
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
-</div>
     </div>
 </div>
